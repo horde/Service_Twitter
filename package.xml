@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-19</date>
+ <date>2017-10-17</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -33,7 +33,6 @@
         <file name="twitter_browser.php" role="doc" />
         <file name="twitter_cli.php" role="doc" />
        </dir> <!-- /doc/Horde/Service/Twitter/examples -->
-       <file name="COPYING" role="doc" />
       </dir> <!-- /doc/Horde/Service/Twitter -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -59,6 +58,7 @@
      </dir> <!-- /lib/Horde/Service -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <file name="LICENSE" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -117,18 +117,18 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="COPYING" name="doc/Horde/Service/Twitter/COPYING" />
    <install as="examples/twitter_browser.php" name="doc/Horde/Service/Twitter/examples/twitter_browser.php" />
    <install as="examples/twitter_cli.php" name="doc/Horde/Service/Twitter/examples/twitter_cli.php" />
    <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
    <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
    <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
+   <install as="Horde/Service/Twitter/Auth/Oauth.php" name="lib/Horde/Service/Twitter/Auth/Oauth.php" />
    <install as="Horde/Service/Twitter/Exception.php" name="lib/Horde/Service/Twitter/Exception.php" />
    <install as="Horde/Service/Twitter/Favorites.php" name="lib/Horde/Service/Twitter/Favorites.php" />
    <install as="Horde/Service/Twitter/Request.php" name="lib/Horde/Service/Twitter/Request.php" />
-   <install as="Horde/Service/Twitter/Statuses.php" name="lib/Horde/Service/Twitter/Statuses.php" />
-   <install as="Horde/Service/Twitter/Auth/Oauth.php" name="lib/Horde/Service/Twitter/Auth/Oauth.php" />
    <install as="Horde/Service/Twitter/Request/Oauth.php" name="lib/Horde/Service/Twitter/Request/Oauth.php" />
+   <install as="Horde/Service/Twitter/Statuses.php" name="lib/Horde/Service/Twitter/Statuses.php" />
+   <install as="LICENSE" name="LICENSE" />
   </filelist>
  </phprelease>
  <changelog>
@@ -451,7 +451,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-19</date>
+   <date>2017-10-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
