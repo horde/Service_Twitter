@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.1.6",
-    "time": "2017-09-19",
+    "version": "2.1.7",
+    "time": "2017-10-17",
     "repositories": [
         {
             "type": "pear",
@@ -21,12 +21,12 @@
     ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Controller": "^2@stable",
-        "pear-pear.horde.org/Horde_Exception": "^2@stable",
-        "pear-pear.horde.org/Horde_Http": "^2@stable",
-        "pear-pear.horde.org/Horde_Oauth": "^2@stable",
-        "pear-pear.horde.org/Horde_Url": "^2@stable",
-        "pear-pear.horde.org/Horde_Util": "^2@stable"
+        "pear-pear.horde.org/Horde_Controller": "^2",
+        "pear-pear.horde.org/Horde_Exception": "^2",
+        "pear-pear.horde.org/Horde_Http": "^2",
+        "pear-pear.horde.org/Horde_Oauth": "^2",
+        "pear-pear.horde.org/Horde_Url": "^2",
+        "pear-pear.horde.org/Horde_Util": "^2"
     },
     "replace": {
         "pear-pear.horde.org/Horde_Service_Twitter": "2.*",
