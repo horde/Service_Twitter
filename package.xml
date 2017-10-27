@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-10-17</date>
+ <date>2017-10-27</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -32,6 +32,7 @@
         <file name="twitter_browser.php" role="doc" />
         <file name="twitter_cli.php" role="doc" />
        </dir> <!-- /doc/Horde/Service/Twitter/examples -->
+       <file name="CHANGES" role="doc" />
       </dir> <!-- /doc/Horde/Service/Twitter -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -116,6 +117,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="doc/Horde/Service/Twitter/CHANGES" />
    <install as="examples/twitter_browser.php" name="doc/Horde/Service/Twitter/examples/twitter_browser.php" />
    <install as="examples/twitter_cli.php" name="doc/Horde/Service/Twitter/examples/twitter_cli.php" />
    <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
@@ -450,7 +452,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-10-17</date>
+   <date>2017-10-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
    </notes>
