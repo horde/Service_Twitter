@@ -2,7 +2,7 @@
 id: Service_Twitter
 name: Service_Twitter
 full: Twitter client library
-description: Client libraries for the Twitter REST API.
+description: A client library for the Twitter REST API.
 list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Service_Twitter
