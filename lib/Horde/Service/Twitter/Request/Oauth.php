@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Horde_Service_Twitter_Request_Oauth class wraps sending requests to Twitter's
  * REST API using OAuth authentication.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -21,7 +22,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      * @return string  Call results.
      * @throws Horde_Service_Twitter_Exception
      */
-    public function get($url, array $params = array())
+    public function get($url, array $params = [])
     {
         $key = md5($url . 'get' . serialize($params) . serialize($this->_twitter->auth->getAccessToken($this->_request)));
         $cache = $this->_twitter->responseCache;
@@ -29,13 +30,15 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
             return $results;
         }
         $request = new Horde_Oauth_Request($url, $params, 'GET');
-        $request->sign($this->_twitter->auth->oauth->signatureMethod,
-                       $this->_twitter->auth->oauth,
-                       $this->_twitter->auth->getAccessToken($this->_request));
+        $request->sign(
+            $this->_twitter->auth->oauth->signatureMethod,
+            $this->_twitter->auth->oauth,
+            $this->_twitter->auth->getAccessToken($this->_request)
+        );
         $url = ($url instanceof Horde_Url) ? $url : new Horde_Url($url);
         $url->add($params);
         try {
-            $response = $this->_twitter->getHttpClient()->get((string)$url->setRaw(true), array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
+            $response = $this->_twitter->getHttpClient()->get((string) $url->setRaw(true), ['Authorization' => $request->buildAuthorizationHeader('Twitter API')]);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }
@@ -47,7 +50,8 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
             if ($response->code >= 400 && $response->code <= 500) {
                 throw new Horde_Service_Twitter_Exception($body);
             }
-        } catch (Horde_Http_Exception $e) {}
+        } catch (Horde_Http_Exception $e) {
+        }
 
         if (!empty($cache)) {
             $cache->set($key, $body);
@@ -62,15 +66,17 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      *
      * @see self::get
      */
-    public function post($url, array $params = array())
+    public function post($url, array $params = [])
     {
         $request = new Horde_Oauth_Request($url, $params);
-        $request->sign($this->_twitter->auth->oauth->signatureMethod,
-                       $this->_twitter->auth->oauth,
-                       $this->_twitter->auth->getAccessToken($this->_request));
+        $request->sign(
+            $this->_twitter->auth->oauth->signatureMethod,
+            $this->_twitter->auth->oauth,
+            $this->_twitter->auth->getAccessToken($this->_request)
+        );
         $url = ($url instanceof Horde_Url) ? $url : new Horde_Url($url);
         try {
-            $response = $this->_twitter->getHttpClient()->post((string)$url->setRaw(true), $params, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
+            $response = $this->_twitter->getHttpClient()->post((string) $url->setRaw(true), $params, ['Authorization' => $request->buildAuthorizationHeader('Twitter API')]);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }

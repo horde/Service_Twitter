@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Horde_Service_Twitter_Auth class to abstract all auth related tasks
  *
  * Basically implements Horde_Oauth_Client and passes the calls along to the
  * protected oauth object.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -70,7 +71,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
         }
         $token = new Horde_Oauth_Token($params['oauth_token'], $requestSecret);
         try {
-            return $this->oauth->getAccessToken($token, array('oauth_verifier' => $requestSecret));
+            return $this->oauth->getAccessToken($token, ['oauth_verifier' => $requestSecret]);
         } catch (Horde_Oauth_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e->getMessage());
         }
@@ -84,7 +85,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      * @return  Horde_OAuth_Token  The request token
      * @throws Horde_Service_Twitter_Exception
      */
-    public function getRequestToken($params = array())
+    public function getRequestToken($params = [])
     {
         try {
             return $this->oauth->getRequestToken($params);

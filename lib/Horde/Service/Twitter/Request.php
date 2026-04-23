@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Horde_Service_Twitter_Request_* classes wrap sending requests to Twitter's
  * REST API using various authentication mechanisms.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -34,7 +35,7 @@ abstract class Horde_Service_Twitter_Request
         $this->_twitter = $twitter;
     }
 
-    abstract public function get($url, array $params = array());
-    abstract public function post($url, array $params = array());
+    abstract public function get($url, array $params = []);
+    abstract public function post($url, array $params = []);
 
 }

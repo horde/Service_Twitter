@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -35,16 +36,16 @@
 class Horde_Service_Twitter
 {
     /* Constants */
-    const REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
-    const USER_AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize';
-    const ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token';
+    public const REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
+    public const USER_AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize';
+    public const ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token';
 
     /**
      * Cache for the various objects we lazy load in __get()
      *
      * @var hash of Horde_Service_Twitter_* objects
      */
-    protected $_objCache = array();
+    protected $_objCache = [];
 
     /**
      * (Optional) Cache object.
@@ -87,7 +88,7 @@ class Horde_Service_Twitter
      *
      * @var Horde_Http_Client
      */
-     protected $_httpClient;
+    protected $_httpClient;
 
     /**
      * Constructor.
@@ -95,9 +96,10 @@ class Horde_Service_Twitter
      * @param Horde_Service_Twitter_Auth $auth        An authentication object
      * @param Horde_Service_Twitter_Request $request  A request object.
      */
-    public function __construct(Horde_Service_Twitter_Auth $auth,
-                                Horde_Service_Twitter_Request $request)
-    {
+    public function __construct(
+        Horde_Service_Twitter_Auth $auth,
+        Horde_Service_Twitter_Request $request
+    ) {
         $this->_auth = $auth;
         $this->_auth->setTwitter($this);
         $this->_request = $request;
@@ -131,13 +133,13 @@ class Horde_Service_Twitter
         }
 
         /* Parameters required for the Horde_Oauth_Consumer */
-        $consumer_params = array(
+        $consumer_params = [
             'key' => $params['oauth']['consumer_key'],
             'secret' => $params['oauth']['consumer_secret'],
             'requestTokenUrl' => self::REQUEST_TOKEN_URL,
             'authorizeTokenUrl' => self::USER_AUTHORIZE_URL,
             'accessTokenUrl' => self::ACCESS_TOKEN_URL,
-            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1());
+            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1()];
 
         /* Create the Consumer */
         $oauth = new Horde_Oauth_Consumer($consumer_params);
@@ -146,18 +148,21 @@ class Horde_Service_Twitter
         $twitter = new Horde_Service_Twitter(
             new Horde_Service_Twitter_Auth_Oauth($oauth),
             new Horde_Service_Twitter_Request_Oauth(
-                new Horde_Controller_Request_Http()));
+                new Horde_Controller_Request_Http()
+            )
+        );
 
         /* Create HTTP client. */
-        $http_params = isset($params['http']) ? $params['http'] : array();
+        $http_params = $params['http'] ?? [];
         $twitter->setHttpClient(new Horde_Http_Client($http_params));
 
         /* Check for an existing token */
-        if (!empty($params['oauth']['access_token']) &&
-            !empty($params['oauth']['access_token_secret'])) {
+        if (!empty($params['oauth']['access_token'])
+            && !empty($params['oauth']['access_token_secret'])) {
             $auth_token = new Horde_Oauth_Token(
                 $params['oauth']['access_token'],
-                $params['oauth']['access_token_secret']);
+                $params['oauth']['access_token_secret']
+            );
             $twitter->auth->setToken($auth_token);
         }
 
@@ -206,14 +211,14 @@ class Horde_Service_Twitter
     {
         // First, see if it's an allowed protected value.
         switch ($value) {
-        case 'auth':
-            return $this->_auth;
-        case 'request':
-            return $this->_request;
-        case 'responseCache':
-            return $this->_responseCache;
-        case 'cacheLifetime':
-            return $this->_cacheLifetime;
+            case 'auth':
+                return $this->_auth;
+            case 'request':
+                return $this->_request;
+            case 'responseCache':
+                return $this->_responseCache;
+            case 'cacheLifetime':
+                return $this->_cacheLifetime;
         }
 
         // If not, assume it's a method/action class...

@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Horde_Service_Twitter_Statuses class for updating, retrieving user statuses.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -43,7 +44,7 @@ class Horde_Service_Twitter_Statuses
     public function show($id)
     {
         $url = $this->_endpoint . 'show.' . $this->_format;
-        return $this->_twitter->request->post($url, array('id' => $id));
+        return $this->_twitter->request->post($url, ['id' => $id]);
     }
 
     /**
@@ -59,7 +60,7 @@ class Horde_Service_Twitter_Statuses
     public function destroy($id)
     {
         $url = $this->_endpoint . 'destroy.' . $this->_format;
-        return $this->_twitter->request->post($url, array('id' => $id));
+        return $this->_twitter->request->post($url, ['id' => $id]);
     }
 
     /**
@@ -73,7 +74,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function update($status, $params = array())
+    public function update($status, $params = [])
     {
         $url = $this->_endpoint . 'update.' . $this->_format;
         $params['status'] = $status;
@@ -106,7 +107,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function friendsTimeline($params = array())
+    public function friendsTimeline($params = [])
     {
         $url = $this->_endpoint . 'friends_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -129,7 +130,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function homeTimeline($params = array())
+    public function homeTimeline($params = [])
     {
         $url = $this->_endpoint . 'home_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -148,7 +149,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function retweetedByMe($params = array())
+    public function retweetedByMe($params = [])
     {
         $url = $this->_endpoint . 'retweeted_by_me.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -168,7 +169,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function retweetedToMe($params = array())
+    public function retweetedToMe($params = [])
     {
         $url = $this->_endpoint . 'retweetedToMe.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -188,7 +189,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function retweetsOfMe($params = array())
+    public function retweetsOfMe($params = [])
     {
         $url = $this->_endpoint . 'retweets_of_me.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -205,9 +206,9 @@ class Horde_Service_Twitter_Statuses
      */
     public function retweet($id)
     {
-        $url = $this->_endpoint . 'retweet/' . $id .  '.' . $this->_format;
+        $url = $this->_endpoint . 'retweet/' . $id . '.' . $this->_format;
 
-        return $this->_twitter->request->post($url, array());
+        return $this->_twitter->request->post($url, []);
     }
 
     /**
@@ -246,7 +247,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function userTimeline($params = array())
+    public function userTimeline($params = [])
     {
         $url = $this->_endpoint . 'user_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -268,7 +269,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @return string
      */
-    public function mentions($params = array())
+    public function mentions($params = [])
     {
         $url = $this->_endpoint . 'mentions_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -294,7 +295,7 @@ class Horde_Service_Twitter_Statuses
      *   </pre>
      * @return unknown_type
      */
-    public function friends($params = array())
+    public function friends($params = [])
     {
         $url = $this->_endpoint . 'friends.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
@@ -320,7 +321,7 @@ class Horde_Service_Twitter_Statuses
      *   </pre>
      * @return unknown_type
      */
-    public function followers($params = array())
+    public function followers($params = [])
     {
         $url = $this->_endpoint . 'followers.' . $this->_format;
         return $this->_twitter->request->get($url, $params);

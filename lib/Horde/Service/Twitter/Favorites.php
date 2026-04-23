@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Horde_Service_Twitter_Favorites class for updating favorite tweets.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -56,7 +57,7 @@ class Horde_Service_Twitter_Favorites
     public function destroy($id)
     {
         $url = $this->_endpoint . 'destroy.' . $this->_format;
-        return $this->_twitter->request->post($url, array('id' => $id));
+        return $this->_twitter->request->post($url, ['id' => $id]);
     }
 
     /**
@@ -69,7 +70,7 @@ class Horde_Service_Twitter_Favorites
     public function create($id)
     {
         $url = $this->_endpoint . 'create.' . $this->_format;
-        return $this->_twitter->request->post($url, array('id' => $id));
+        return $this->_twitter->request->post($url, ['id' => $id]);
     }
 
 }
