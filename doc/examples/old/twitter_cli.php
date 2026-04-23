@@ -1,9 +1,10 @@
 #!/usr/bin/env php
 <?php
+
 /**
  * Simple Twitter client.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -13,18 +14,18 @@
  */
 
 /* Keys - these are obtained when registering for the service */
-$keys = array(
+$keys = [
     'consumer_key'        => '*****',
     'consumer_secret'     => '*****',
     'access_token'        => '*****-*****',
-    'access_token_secret' => '*****'
-);
+    'access_token_secret' => '*****',
+];
 
 /* Enable autoloading. */
 require 'Horde/Autoloader/Default.php';
 
 /* Create the Twitter client */
-$twitter = Horde_Service_Twitter::create(array('oauth' => $keys));
+$twitter = Horde_Service_Twitter::create(['oauth' => $keys]);
 
 /* Do something cool.... */
 try {

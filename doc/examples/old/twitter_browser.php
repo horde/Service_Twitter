@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Callback page for Twitter integration.
  *
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -28,19 +29,19 @@ $auth_url = 'http://twitter.com/oauth/authorize';
 $accessToken_url = 'http://twitter.com/oauth/access_token';
 
 /* Parameters required for the Horde_Oauth_Consumer */
-$params = array('key' => $consumer_key,
-                'secret' => $consumer_secret,
-                'requestTokenUrl' => $token_url,
-                'authorizeTokenUrl' => $auth_url,
-                'accessTokenUrl' => $accessToken_url,
-                'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1());
+$params = ['key' => $consumer_key,
+    'secret' => $consumer_secret,
+    'requestTokenUrl' => $token_url,
+    'authorizeTokenUrl' => $auth_url,
+    'accessTokenUrl' => $accessToken_url,
+    'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1()];
 
 /* Create the Consumer */
 $oauth = new Horde_Oauth_Consumer($params);
 
 /* Create the Twitter client */
-$twitter = new Horde_Service_Twitter(array('oauth' => $oauth,
-                                           'request' => new Horde_Controller_Request_Http()));
+$twitter = new Horde_Service_Twitter(['oauth' => $oauth,
+    'request' => new Horde_Controller_Request_Http()]);
 /* At this point we would check for an existing, valid authorization token */
 // $auth_token should be a Horde_Oauth_Token object
 // $auth_token = getTokenFromStorage();
@@ -57,8 +58,10 @@ if (!empty($auth_token)) {
 
 } elseif (!empty($_SESSION['twitter_request_secret'])) {
     /* No existing auth token, maybe we are in the process of getting it? */
-    $a_token = $twitter->auth->getAccessToken(new Horde_Controller_Request_Http(),
-                                              $_SESSION['twitter_request_secret']);
+    $a_token = $twitter->auth->getAccessToken(
+        new Horde_Controller_Request_Http(),
+        $_SESSION['twitter_request_secret']
+    );
 
     // Clear the request secret from the session now that we're done with it,
     // again, using _SESSION for simplicity for this example
