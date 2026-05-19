@@ -14,10 +14,10 @@ authors:
     active: true
     role: lead
 version:
-  release: 3.0.0alpha2
+  release: 3.0.0-RC1
   api: 2.1.0
 state:
-  release: alpha
+  release: RC
   api: stable
 license:
   identifier: BSD-2-Clause

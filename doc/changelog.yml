@@ -9,7 +9,6 @@
     identifier: BSD-2-Clause
     uri: http://www.horde.org/licenses/bsd
   notes: |+
-    
 3.0.0alpha1:
   api: 2.1.0
   state:
@@ -21,6 +20,23 @@
     uri: http://www.horde.org/licenses/bsd
   notes: |
     [rla] Package for H6 / composer installer.
+3.0.0-RC1:
+  api: 3.0.0-RC1
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-19
+  license:
+    identifier: BSD-2-Clause
+    uri: https://spdx.org/licenses/BSD-2-Clause.html
+  notes: |-
+    chore: Update metadata, remove relation to satis repo
+    docs: Add example for the modernized V1 API
+    test: Cover V1 api with unit tests
+    feat: Port V1 API to PSR-4
+    style: php-cs-fixer
+    Add CI job for satis repo update
+    Development mode for Service_Twitter-3.0.0alpha3
 2.1.7:
   api: 2.1.0
   state:
@@ -142,17 +158,6 @@
     uri: http://www.horde.org/licenses/bsd
   notes: |
     [jan] Re-packaged 2.0.0 release.
-2.0.0:
-  api: 1.1.0
-  state:
-    release: stable
-    api: stable
-  date: 2012-10-30
-  license:
-    identifier: BSD-2-Clause
-    uri: http://www.horde.org/licenses/bsd
-  notes: |
-    First stable release for Horde 5.
 2.0.0beta1:
   api: 1.1.0
   state:
@@ -176,6 +181,17 @@
   notes: |
     First alpha release for Horde 5.
     [mjr] Update API endpoints.
+2.0.0:
+  api: 1.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-10-30
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First stable release for Horde 5.
 1.1.4:
   api: 1.1.0
   state:
@@ -232,39 +248,6 @@
   notes: |
     [jan] Add CLI client example.
     [jan] Add Horde_Services_Twitter::create() factory method.
-1.0.0:
-  api: 1.0.0
-  state:
-    release: stable
-    api: stable
-  date: 2011-04-06
-  license:
-    identifier: BSD-2-Clause
-    uri: http://www.horde.org/licenses/bsd
-  notes: |
-    First stable release for Horde 4.
-1.0.0RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: BSD-2-Clause
-    uri: http://www.horde.org/licenses/bsd
-  notes: |
-    Second release candidate for Horde 4.
-1.0.0RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: BSD-2-Clause
-    uri: http://www.horde.org/licenses/bsd
-  notes: |
-    First release candidate for Horde 4.
 1.0.0beta1:
   api: 1.0.0
   state:
@@ -287,3 +270,36 @@
     uri: http://www.horde.org/licenses/bsd
   notes: |
     First alpha release for Horde 4.
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    Second release candidate for Horde 4.
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First release candidate for Horde 4.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-04-06
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First stable release for Horde 4.
