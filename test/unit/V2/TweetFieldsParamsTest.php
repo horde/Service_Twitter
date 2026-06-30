@@ -56,4 +56,26 @@ final class TweetFieldsParamsTest extends TestCase
         self::assertSame('name', $query['user.fields']);
         self::assertSame('author_id', $query['expansions']);
     }
+
+    public function testMediaPollPlaceFieldsEmitted(): void
+    {
+        $params = new TweetFieldsParams(
+            mediaFields: ['url', 'preview_image_url', 'alt_text'],
+            pollFields: ['options', 'voting_status'],
+            placeFields: ['full_name', 'country_code'],
+        );
+
+        $query = $params->toQueryParams();
+
+        self::assertSame('url,preview_image_url,alt_text', $query['media.fields']);
+        self::assertSame('options,voting_status', $query['poll.fields']);
+        self::assertSame('full_name,country_code', $query['place.fields']);
+    }
+
+    public function testEmptyMediaPollPlaceArraysAreOmitted(): void
+    {
+        $params = new TweetFieldsParams(mediaFields: [], pollFields: [], placeFields: []);
+
+        self::assertSame([], $params->toQueryParams());
+    }
 }
