@@ -83,7 +83,7 @@ final class RateLimitExceptionTest extends TestCase
         $response->expects($this->exactly(4))
             ->method('getHeaderLine')
             ->willReturnCallback(
-                static fn (string $name): string => $headers[strtolower($name)] ?? '',
+                static fn(string $name): string => $headers[strtolower($name)] ?? '',
             );
 
         return $response;

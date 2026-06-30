@@ -247,7 +247,7 @@ final class TwitterApiClientErrorTest extends TestCase
         $response->expects($this->atLeastOnce())->method('getReasonPhrase')->willReturn('Error');
         $response->expects($this->atLeastOnce())->method('getBody')->willReturn($stream);
         $response->method('getHeaderLine')->willReturnCallback(
-            static fn (string $name): string => $headers[strtolower($name)] ?? '',
+            static fn(string $name): string => $headers[strtolower($name)] ?? '',
         );
 
         $httpClient = $this->createMock(ClientInterface::class);

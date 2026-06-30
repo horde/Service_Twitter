@@ -69,7 +69,7 @@ final class Tweet implements Stringable
         $referencedTweets = null;
         if (isset($data->referenced_tweets) && is_array($data->referenced_tweets)) {
             $referencedTweets = array_map(
-                static fn (object $ref): array => [
+                static fn(object $ref): array => [
                     'type' => $ref->type ?? '',
                     'id' => $ref->id ?? '',
                 ],

@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Horde\Service\Twitter\V2;
 
 use DateTimeInterface;
+use DateTimeImmutable;
+use DateTimeZone;
 
 /**
  * Query parameters shared by `GET /2/users/{id}/tweets` and the bookmark
@@ -82,8 +84,8 @@ final class UserTimelineParams
      */
     private static function formatTime(DateTimeInterface $time): string
     {
-        $utc = (new \DateTimeImmutable('@' . $time->getTimestamp()))->setTimezone(
-            new \DateTimeZone('UTC'),
+        $utc = (new DateTimeImmutable('@' . $time->getTimestamp()))->setTimezone(
+            new DateTimeZone('UTC'),
         );
 
         return $utc->format('Y-m-d\TH:i:s\Z');
