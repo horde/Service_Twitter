@@ -42,7 +42,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Horde\\Service\\Twitter\\Test\\": "test/"
+            "Horde\\Service\\Twitter\\Test\\": "test/",
+            "Horde\\Service\\Twitter\\V1\\Test\\Unit\\": "test/unit/",
+            "Horde\\Service\\Twitter\\V2\\Test\\Unit\\": "test/unit/V2/",
+            "Horde\\Service\\Twitter\\V2\\Test\\Integration\\": "test/integration/V2/"
         }
     },
     "config": {
