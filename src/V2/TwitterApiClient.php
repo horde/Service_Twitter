@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Horde\Service\Twitter\V2;
 
+use Closure;
 use Horde\Service\Twitter\V2\Request\CreateBookmarkRequestFactory;
 use Horde\Service\Twitter\V2\Request\CreateLikeRequestFactory;
 use Horde\Service\Twitter\V2\Request\CreateRetweetRequestFactory;
@@ -126,13 +127,14 @@ class TwitterApiClient
         $response = $this->httpClient->sendRequest($factory->create());
 
         if ($response->getStatusCode() === 200) {
-            $json = json_decode((string) $response->getBody());
-            $tweets = array_map(
-                Tweet::fromApiResponse(...),
-                $json->data ?? [],
+            return $this->decodeTweetPage(
+                $response,
+                fn (string $next): PaginatedResponse => $this->getUserTimeline(
+                    $userId,
+                    self::withPaginationToken($params, $next),
+                    $fields,
+                ),
             );
-            $meta = PaginationMeta::fromApiResponse($json->meta ?? (object) []);
-            return new PaginatedResponse($tweets, $meta);
         }
 
         throw $this->createException($response);
@@ -224,13 +226,14 @@ class TwitterApiClient
         $response = $this->httpClient->sendRequest($factory->create());
 
         if ($response->getStatusCode() === 200) {
-            $json = json_decode((string) $response->getBody());
-            $tweets = array_map(
-                Tweet::fromApiResponse(...),
-                $json->data ?? [],
+            return $this->decodeTweetPage(
+                $response,
+                fn (string $next): PaginatedResponse => $this->getBookmarks(
+                    $userId,
+                    self::withPaginationToken($params, $next),
+                    $fields,
+                ),
             );
-            $meta = PaginationMeta::fromApiResponse($json->meta ?? (object) []);
-            return new PaginatedResponse($tweets, $meta);
         }
 
         throw $this->createException($response);
@@ -263,6 +266,52 @@ class TwitterApiClient
         }
 
         return $this->streamFactory;
+    }
+
+    /**
+     * Decode a tweet listing response (timeline / bookmarks) into a
+     * PaginatedResponse, wiring the supplied fetcher closure so callers can
+     * walk every page via `iterator()` without managing pagination tokens.
+     *
+     * @param Closure(string): PaginatedResponse<Tweet> $fetcher
+     * @return PaginatedResponse<Tweet>
+     */
+    private function decodeTweetPage(ResponseInterface $response, Closure $fetcher): PaginatedResponse
+    {
+        $json = json_decode((string) $response->getBody());
+        $tweets = array_map(
+            Tweet::fromApiResponse(...),
+            $json->data ?? [],
+        );
+        $meta = PaginationMeta::fromApiResponse($json->meta ?? (object) []);
+        $includes = null;
+        if (isset($json->includes) && is_object($json->includes)) {
+            $includes = Includes::fromApiResponse($json->includes);
+        }
+
+        return new PaginatedResponse($tweets, $meta, $includes, $fetcher);
+    }
+
+    /**
+     * Produce a new UserTimelineParams identical to $base but with
+     * paginationToken replaced. Used by the auto-pagination fetcher closure
+     * to walk to the next page without mutating the caller's input.
+     */
+    private static function withPaginationToken(?UserTimelineParams $base, string $token): UserTimelineParams
+    {
+        if ($base === null) {
+            return new UserTimelineParams(paginationToken: $token);
+        }
+
+        return new UserTimelineParams(
+            maxResults: $base->maxResults,
+            paginationToken: $token,
+            sinceId: $base->sinceId,
+            untilId: $base->untilId,
+            exclude: $base->exclude,
+            startTime: $base->startTime,
+            endTime: $base->endTime,
+        );
     }
 
     private function createException(ResponseInterface $response): TwitterApiException
