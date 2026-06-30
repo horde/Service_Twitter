@@ -129,7 +129,7 @@ class TwitterApiClient
         if ($response->getStatusCode() === 200) {
             return $this->decodeTweetPage(
                 $response,
-                fn (string $next): PaginatedResponse => $this->getUserTimeline(
+                fn(string $next): PaginatedResponse => $this->getUserTimeline(
                     $userId,
                     self::withPaginationToken($params, $next),
                     $fields,
@@ -228,7 +228,7 @@ class TwitterApiClient
         if ($response->getStatusCode() === 200) {
             return $this->decodeTweetPage(
                 $response,
-                fn (string $next): PaginatedResponse => $this->getBookmarks(
+                fn(string $next): PaginatedResponse => $this->getBookmarks(
                     $userId,
                     self::withPaginationToken($params, $next),
                     $fields,

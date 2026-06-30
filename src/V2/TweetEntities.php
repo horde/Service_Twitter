@@ -57,7 +57,7 @@ final class TweetEntities
         }
 
         return array_map(
-            static fn (object $item): array => (array) $item,
+            static fn(object $item): array => (array) $item,
             $value,
         );
     }
