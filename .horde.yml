@@ -7,8 +7,7 @@ list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Service_Twitter
 authors:
-  -
-    name: Michael J Rubinsky
+  - name: Michael J Rubinsky
     user: mrubinsk
     email: mrubinsk@horde.org
     active: true
@@ -43,3 +42,42 @@ vendor: horde
 quality:
   phpstan:
     level: 6
+ci-platform:
+  '8.1':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+  '8.2':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+  '8.3':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+  '8.4':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+  '8.5':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+  '8.6':
+    - php: ^8.1
+    - ext-dom
+    - ext-hash
+    - ext-json
+    - ext-openssl
+ci-platform-flags:
+  needs_installer_plugin: false
