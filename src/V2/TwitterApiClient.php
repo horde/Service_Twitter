@@ -267,12 +267,16 @@ class TwitterApiClient
 
     private function createException(ResponseInterface $response): TwitterApiException
     {
-        $body = (string) $response->getBody();
+        $message = $this->parseErrorResponse($response);
+
+        if ($response->getStatusCode() === 429) {
+            return RateLimitException::fromResponse($response, $message);
+        }
 
         return new TwitterApiException(
-            $this->parseErrorResponse($response),
+            $message,
             $response->getStatusCode(),
-            $body,
+            (string) $response->getBody(),
         );
     }
 

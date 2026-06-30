@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Horde\Service\Twitter\V2\Test\Integration;
 
 use Horde\Service\Twitter\V2\CreateTweetParams;
+use Horde\Service\Twitter\V2\RateLimitException;
 use Horde\Service\Twitter\V2\TwitterApiClient;
 use Horde\Service\Twitter\V2\TwitterApiConfig;
 use Horde\Service\Twitter\V2\TwitterApiException;
@@ -19,6 +20,7 @@ use Psr\Http\Message\StreamInterface;
 
 #[CoversClass(TwitterApiClient::class)]
 #[CoversClass(TwitterApiException::class)]
+#[CoversClass(RateLimitException::class)]
 final class TwitterApiClientErrorTest extends TestCase
 {
     public function testThrowsOnUnauthorized(): void
@@ -207,7 +209,35 @@ final class TwitterApiClientErrorTest extends TestCase
         }
     }
 
-    private function buildClient(int $statusCode, string $body): TwitterApiClient
+    public function testRateLimitResponseYieldsRateLimitException(): void
+    {
+        $client = $this->buildClient(
+            429,
+            '{"detail":"rate limited"}',
+            headers: [
+                'x-rate-limit-limit' => '900',
+                'x-rate-limit-remaining' => '0',
+                'x-rate-limit-reset' => '1717000000',
+            ],
+        );
+
+        try {
+            $client->getMe();
+            self::fail('Expected RateLimitException');
+        } catch (RateLimitException $e) {
+            self::assertSame(429, $e->httpStatusCode);
+            self::assertSame(900, $e->limit);
+            self::assertSame(0, $e->remaining);
+            self::assertNotNull($e->resetAt);
+            self::assertSame(1717000000, $e->resetAt->getTimestamp());
+            self::assertStringContainsString('rate limited', $e->getMessage());
+        }
+    }
+
+    /**
+     * @param array<string, string> $headers
+     */
+    private function buildClient(int $statusCode, string $body, array $headers = []): TwitterApiClient
     {
         $stream = $this->createMock(StreamInterface::class);
         $stream->expects($this->atLeastOnce())->method('__toString')->willReturn($body);
@@ -216,6 +246,9 @@ final class TwitterApiClientErrorTest extends TestCase
         $response->expects($this->atLeastOnce())->method('getStatusCode')->willReturn($statusCode);
         $response->expects($this->atLeastOnce())->method('getReasonPhrase')->willReturn('Error');
         $response->expects($this->atLeastOnce())->method('getBody')->willReturn($stream);
+        $response->method('getHeaderLine')->willReturnCallback(
+            static fn (string $name): string => $headers[strtolower($name)] ?? '',
+        );
 
         $httpClient = $this->createMock(ClientInterface::class);
         $httpClient->expects($this->once())
